@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Sales Manager</title>
+    <title>TechyNexus - Team Sales Manager</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
         .sidebar-transition {
             transition: transform 0.3s ease-in-out;
@@ -18,39 +20,97 @@
                 transform: translateX(-100%);
             }
         }
+        .gradient-bg {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(255, 215, 0, 0.3), 0 10px 10px -5px rgba(255, 215, 0, 0.1);
+        }
+        .glass-effect {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        .premium-shadow {
+            box-shadow: 0 25px 50px -12px rgba(255, 215, 0, 0.4);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .btn-premium {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            transition: all 0.3s ease;
+            color: #000000;
+        }
+        .btn-premium:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.6);
+        }
+        .sidebar-gradient {
+            background: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
+        }
     </style>
 </head>
-<body class="bg-gray-50 min-h-full">
+<body class="bg-black min-h-full">
     <!-- Login Screen -->
-    <div id="loginScreen" class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div id="loginScreen" class="min-h-full gradient-bg flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8">
-            <div>
-                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Team Sales Manager</h2>
-                <p class="mt-2 text-center text-sm text-gray-600">Sign in to your account</p>
-            </div>
-            <form id="loginForm" class="mt-8 space-y-6">
-                <div class="rounded-md shadow-sm -space-y-px">
-                    <div>
-                        <label for="username" class="sr-only">Username</label>
-                        <input id="username" name="username" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Username">
+            <div class="glass-effect rounded-2xl p-8 premium-shadow">
+                <div class="text-center mb-8">
+                    <div class="mx-auto h-16 w-16 bg-white rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+                        <svg class="h-10 w-10 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gradient mb-2">TechyNexus</h2>
+                    <p class="text-lg font-semibold text-gradient">Team Sales Manager</p>
+                    <p class="mt-2 text-sm text-yellow-300">Sign in to your account</p>
+                </div>
+                <form id="loginForm" class="space-y-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label for="username" class="block text-sm font-medium text-yellow-300 mb-2">Username</label>
+                            <input id="username" name="username" type="text" required class="w-full px-4 py-3 bg-black/50 border border-yellow-500/30 rounded-xl text-yellow-100 placeholder-yellow-400/60 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 backdrop-blur-sm" placeholder="Enter your username">
+                        </div>
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-yellow-300 mb-2">Password</label>
+                            <input id="password" name="password" type="password" required class="w-full px-4 py-3 bg-black/50 border border-yellow-500/30 rounded-xl text-yellow-100 placeholder-yellow-400/60 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 backdrop-blur-sm" placeholder="Enter your password">
+                        </div>
                     </div>
                     <div>
-                        <label for="password" class="sr-only">Password</label>
-                        <input id="password" name="password" type="password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password">
+                        <button type="submit" class="w-full btn-premium text-black font-semibold py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:ring-offset-2 focus:ring-offset-transparent">
+                            Sign in to TechyNexus
+                        </button>
                     </div>
-                </div>
-                <div>
-                    <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Sign in
-                    </button>
-                </div>
-            </form>
-            <div class="mt-4 p-4 bg-blue-50 rounded-md">
-                <h3 class="text-sm font-medium text-blue-800 mb-2">Demo Credentials:</h3>
-                <div class="text-xs text-blue-700 space-y-1">
-                    <div><strong>Sales:</strong> pranav / sales123</div>
-                    <div><strong>Management:</strong> ashar / mgmt123</div>
-                    <div><strong>Developer:</strong> ajeet / dev123</div>
+                </form>
+                <div class="mt-6 p-4 bg-black/30 rounded-xl border border-yellow-500/30 backdrop-blur-sm">
+                    <h3 class="text-sm font-semibold text-yellow-300 mb-3 flex items-center">
+                        <svg class="w-4 h-4 mr-2 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+                        </svg>
+                        Demo Credentials
+                    </h3>
+                    <div class="text-xs text-yellow-200 space-y-2">
+                        <div class="flex justify-between items-center p-2 bg-yellow-500/10 rounded-lg border border-yellow-500/20">
+                            <span><strong>Sales Executive:</strong></span>
+                            <span class="font-mono text-yellow-300">pranav / sales123</span>
+                        </div>
+                        <div class="flex justify-between items-center p-2 bg-yellow-500/10 rounded-lg border border-yellow-500/20">
+                            <span><strong>Management:</strong></span>
+                            <span class="font-mono text-yellow-300">ashar / mgmt123</span>
+                        </div>
+                        <div class="flex justify-between items-center p-2 bg-yellow-500/10 rounded-lg border border-yellow-500/20">
+                            <span><strong>Developer:</strong></span>
+                            <span class="font-mono text-yellow-300">ajeet / dev123</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,42 +119,52 @@
     <!-- Main Application -->
     <div id="mainApp" class="hidden min-h-full">
         <!-- Sidebar -->
-        <div id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg sidebar-transition">
-            <div class="flex items-center justify-between h-16 px-6 border-b border-gray-200">
-                <h1 class="text-xl font-bold text-gray-900">TSM</h1>
-                <button id="closeSidebar" class="md:hidden p-2 rounded-md text-gray-400 hover:text-gray-500">
+        <div id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 sidebar-gradient shadow-2xl sidebar-transition">
+            <div class="flex items-center justify-between h-16 px-6 border-b border-white/10">
+                <div class="flex items-center space-x-3">
+                    <div class="h-8 w-8 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center">
+                        <svg class="h-5 w-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold text-gradient">TechyNexus</h1>
+                        <p class="text-xs text-yellow-300">Sales Manager</p>
+                    </div>
+                </div>
+                <button id="closeSidebar" class="md:hidden p-2 rounded-md text-gray-300 hover:text-white hover:bg-white/10">
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
-            <nav class="mt-6">
-                <div class="px-3 space-y-1">
-                    <button class="nav-item w-full text-left px-3 py-2 rounded-md text-sm font-medium text-gray-900 bg-gray-100" data-section="dashboard">
+            <nav class="mt-8 px-4">
+                <div class="space-y-2">
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-black bg-gradient-to-r from-yellow-400 to-yellow-600 shadow-lg" data-section="dashboard">
                         <svg class="inline w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
                         </svg>
                         Dashboard
                     </button>
-                    <button class="nav-item w-full text-left px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50" data-section="team">
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-yellow-300 hover:text-yellow-100 hover:bg-yellow-500/20 transition-all duration-200" data-section="team">
                         <svg class="inline w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
                         </svg>
-                        Team
+                        Team Management
                     </button>
-                    <button class="nav-item w-full text-left px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50" data-section="projects">
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-yellow-300 hover:text-yellow-100 hover:bg-yellow-500/20 transition-all duration-200" data-section="projects">
                         <svg class="inline w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                         </svg>
                         Projects
                     </button>
-                    <button class="nav-item w-full text-left px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50" data-section="quotation">
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-yellow-300 hover:text-yellow-100 hover:bg-yellow-500/20 transition-all duration-200" data-section="quotation">
                         <svg class="inline w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                         </svg>
-                        Quotation
+                        Price Quotation
                     </button>
-                    <button class="nav-item w-full text-left px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50" data-section="analytics">
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-yellow-300 hover:text-yellow-100 hover:bg-yellow-500/20 transition-all duration-200" data-section="analytics">
                         <svg class="inline w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                         </svg>
@@ -102,35 +172,51 @@
                     </button>
                 </div>
             </nav>
-            <div class="absolute bottom-0 w-full p-4 border-t border-gray-200">
-                <div class="flex items-center">
+            <div class="absolute bottom-0 w-full p-4 border-t border-yellow-500/20">
+                <div class="flex items-center mb-4">
                     <div class="flex-shrink-0">
-                        <div class="w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center">
-                            <span id="userInitial" class="text-white text-sm font-medium">P</span>
+                        <div class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center shadow-lg">
+                            <span id="userInitial" class="text-black text-sm font-semibold">P</span>
                         </div>
                     </div>
                     <div class="ml-3">
-                        <p id="userName" class="text-sm font-medium text-gray-700">Pranav</p>
-                        <p id="userRole" class="text-xs text-gray-500">Sales Executive</p>
+                        <p id="userName" class="text-sm font-semibold text-yellow-100">Pranav</p>
+                        <p id="userRole" class="text-xs text-yellow-300">Sales Executive</p>
                     </div>
                 </div>
-                <button id="logoutBtn" class="mt-3 w-full text-left text-sm text-red-600 hover:text-red-800">Logout</button>
+                <button id="logoutBtn" class="w-full flex items-center justify-center px-4 py-2 text-sm font-medium text-yellow-300 hover:text-yellow-100 hover:bg-yellow-500/20 rounded-lg transition-all duration-200">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                    </svg>
+                    Logout
+                </button>
             </div>
         </div>
 
         <!-- Main Content -->
-        <div class="md:pl-64">
+        <div class="md:pl-64 bg-black min-h-full">
             <!-- Top Bar -->
-            <div class="bg-white shadow-sm border-b border-gray-200">
+            <div class="bg-black/90 backdrop-blur-sm shadow-sm border-b border-yellow-500/30 sticky top-0 z-40">
                 <div class="px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
                         <div class="flex items-center">
-                            <button id="openSidebar" class="md:hidden p-2 rounded-md text-gray-400 hover:text-gray-500">
+                            <button id="openSidebar" class="md:hidden p-2 rounded-lg text-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/20">
                                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                                 </svg>
                             </button>
-                            <h1 id="pageTitle" class="ml-4 text-2xl font-semibold text-gray-900">Dashboard</h1>
+                            <div class="ml-4">
+                                <h1 id="pageTitle" class="text-2xl font-bold text-gradient">Dashboard</h1>
+                                <p class="text-sm text-yellow-300">TechyNexus Sales Management System</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="hidden md:flex items-center space-x-2 text-sm text-yellow-300">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span id="currentTime"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -141,81 +227,85 @@
                 <!-- Dashboard Section -->
                 <div id="dashboardSection" class="section">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                        <div class="bg-white overflow-hidden shadow rounded-lg">
-                            <div class="p-5">
+                        <div class="bg-gradient-to-br from-gray-900 to-black overflow-hidden shadow-lg rounded-2xl card-hover border border-yellow-500/30">
+                            <div class="p-6">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0">
-                                        <div class="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
-                                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center shadow-lg">
+                                            <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"></path>
                                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"></path>
                                             </svg>
                                         </div>
                                     </div>
-                                    <div class="ml-5 w-0 flex-1">
+                                    <div class="ml-4 flex-1">
                                         <dl>
-                                            <dt class="text-sm font-medium text-gray-500 truncate">Total Earnings</dt>
-                                            <dd id="totalEarnings" class="text-lg font-medium text-gray-900">₹0</dd>
+                                            <dt class="text-sm font-medium text-yellow-300 truncate">Total Earnings</dt>
+                                            <dd id="totalEarnings" class="text-2xl font-bold text-yellow-100">₹0</dd>
+                                            <dd class="text-xs text-yellow-400 font-medium">+12% from last month</dd>
                                         </dl>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="bg-white overflow-hidden shadow rounded-lg">
-                            <div class="p-5">
+                        <div class="bg-gradient-to-br from-gray-900 to-black overflow-hidden shadow-lg rounded-2xl card-hover border border-yellow-500/30">
+                            <div class="p-6">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0">
-                                        <div class="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
-                                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center shadow-lg">
+                                            <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                             </svg>
                                         </div>
                                     </div>
-                                    <div class="ml-5 w-0 flex-1">
+                                    <div class="ml-4 flex-1">
                                         <dl>
-                                            <dt class="text-sm font-medium text-gray-500 truncate">Projects Involved</dt>
-                                            <dd id="projectsInvolved" class="text-lg font-medium text-gray-900">0</dd>
+                                            <dt class="text-sm font-medium text-yellow-300 truncate">Projects Involved</dt>
+                                            <dd id="projectsInvolved" class="text-2xl font-bold text-yellow-100">0</dd>
+                                            <dd class="text-xs text-yellow-400 font-medium">Active participation</dd>
                                         </dl>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="bg-white overflow-hidden shadow rounded-lg">
-                            <div class="p-5">
+                        <div class="bg-gradient-to-br from-gray-900 to-black overflow-hidden shadow-lg rounded-2xl card-hover border border-yellow-500/30">
+                            <div class="p-6">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0">
-                                        <div class="w-8 h-8 bg-yellow-500 rounded-md flex items-center justify-center">
-                                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center shadow-lg">
+                                            <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 20 20">
                                                 <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
                                             </svg>
                                         </div>
                                     </div>
-                                    <div class="ml-5 w-0 flex-1">
+                                    <div class="ml-4 flex-1">
                                         <dl>
-                                            <dt class="text-sm font-medium text-gray-500 truncate">Active Projects</dt>
-                                            <dd id="activeProjects" class="text-lg font-medium text-gray-900">0</dd>
+                                            <dt class="text-sm font-medium text-yellow-300 truncate">Active Projects</dt>
+                                            <dd id="activeProjects" class="text-2xl font-bold text-yellow-100">0</dd>
+                                            <dd class="text-xs text-yellow-400 font-medium">In progress</dd>
                                         </dl>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="bg-white overflow-hidden shadow rounded-lg">
-                            <div class="p-5">
+                        <div class="bg-gradient-to-br from-gray-900 to-black overflow-hidden shadow-lg rounded-2xl card-hover border border-yellow-500/30">
+                            <div class="p-6">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0">
-                                        <div class="w-8 h-8 bg-purple-500 rounded-md flex items-center justify-center">
-                                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center shadow-lg">
+                                            <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"></path>
                                             </svg>
                                         </div>
                                     </div>
-                                    <div class="ml-5 w-0 flex-1">
+                                    <div class="ml-4 flex-1">
                                         <dl>
-                                            <dt class="text-sm font-medium text-gray-500 truncate">Team Rank</dt>
-                                            <dd id="teamRank" class="text-lg font-medium text-gray-900">#1</dd>
+                                            <dt class="text-sm font-medium text-yellow-300 truncate">Team Rank</dt>
+                                            <dd id="teamRank" class="text-2xl font-bold text-yellow-100">#1</dd>
+                                            <dd class="text-xs text-yellow-400 font-medium">Top performer</dd>
                                         </dl>
                                     </div>
                                 </div>
@@ -223,12 +313,25 @@
                         </div>
                     </div>
 
-                    <div class="bg-white shadow rounded-lg p-6">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Recent Activity</h3>
-                        <div id="recentActivity" class="space-y-3">
-                            <div class="flex items-center text-sm text-gray-600">
-                                <div class="w-2 h-2 bg-green-400 rounded-full mr-3"></div>
-                                Welcome to Team Sales Manager! Start by exploring the features.
+                    <div class="bg-gradient-to-br from-gray-900 to-black shadow-lg rounded-2xl p-6 border border-yellow-500/30">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-xl font-bold text-gradient">Recent Activity</h3>
+                            <div class="flex items-center space-x-2 text-sm text-yellow-300 font-medium">
+                                <div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                                <span>Live Updates</span>
+                            </div>
+                        </div>
+                        <div id="recentActivity" class="space-y-4">
+                            <div class="flex items-start space-x-3 p-3 bg-gradient-to-r from-yellow-500/10 to-yellow-600/10 rounded-xl border border-yellow-500/30">
+                                <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-yellow-100">Welcome to TechyNexus Sales Manager!</p>
+                                    <p class="text-xs text-yellow-300 mt-1">Start by exploring the features and managing your sales pipeline.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -325,9 +428,12 @@
 
                 <!-- Projects Section -->
                 <div id="projectsSection" class="section hidden">
-                    <div class="mb-6">
-                        <button id="addProjectBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium">
-                            Add New Project
+                    <div class="mb-8">
+                        <button id="addProjectBtn" class="btn-premium text-white px-6 py-3 rounded-xl text-sm font-semibold flex items-center space-x-2 shadow-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            <span>Add New Project</span>
                         </button>
                     </div>
                     <div id="projectsList" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -342,11 +448,11 @@
                         <form id="quotationForm" class="space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label for="clientName" class="block text-sm font-medium text-gray-700">Client Name</label>
+                                    <label for="clientName" class="block text-sm font-semibold text-gray-800">Client Name</label>
                                     <input type="text" id="clientName" name="clientName" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                                 </div>
                                 <div>
-                                    <label for="projectCategory" class="block text-sm font-medium text-gray-700">Project Category</label>
+                                    <label for="projectCategory" class="block text-sm font-semibold text-gray-800">Project Category</label>
                                     <select id="projectCategory" name="projectCategory" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                                         <option value="">Select Category</option>
                                         <option value="informative">Informative Website</option>
@@ -354,58 +460,58 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="projectType" class="block text-sm font-medium text-gray-700">Project Type</label>
+                                    <label for="projectType" class="block text-sm font-semibold text-gray-800">Project Type</label>
                                     <select id="projectType" name="projectType" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                                         <option value="">Select Type</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="basePrice" class="block text-sm font-medium text-gray-700">Base Price (₹)</label>
+                                    <label for="basePrice" class="block text-sm font-semibold text-gray-800">Base Price (₹)</label>
                                     <input type="number" id="basePrice" name="basePrice" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" readonly>
                                 </div>
                             </div>
 
                             <div>
-                                <h4 class="text-md font-medium text-gray-900 mb-3">Add-ons</h4>
+                                <h4 class="text-md font-semibold text-gray-900 mb-3">Add-ons</h4>
                                 <div class="space-y-2">
                                     <label class="flex items-center">
                                         <input type="checkbox" id="domainAddon" name="addons" value="1000" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                        <span class="ml-2 text-sm text-gray-700">Domain (₹1,000)</span>
+                                        <span class="ml-2 text-sm text-gray-800 font-medium">Domain (₹1,000)</span>
                                     </label>
                                     <label class="flex items-center">
                                         <input type="checkbox" id="hostingAddon" name="addons" value="3000" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                        <span class="ml-2 text-sm text-gray-700">Hosting (₹3,000)</span>
+                                        <span class="ml-2 text-sm text-gray-800 font-medium">Hosting (₹3,000)</span>
                                     </label>
                                     <label class="flex items-center">
                                         <input type="checkbox" id="maintenanceAddon" name="addons" value="5000" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                        <span class="ml-2 text-sm text-gray-700">Maintenance Plan (₹5,000/year)</span>
+                                        <span class="ml-2 text-sm text-gray-800 font-medium">Maintenance Plan (₹5,000/year)</span>
                                     </label>
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label for="discount" class="block text-sm font-medium text-gray-700">Discount (%)</label>
+                                    <label for="discount" class="block text-sm font-semibold text-gray-800">Discount (%)</label>
                                     <input type="number" id="discount" name="discount" min="0" max="100" value="0" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                 </div>
                                 <div>
-                                    <label for="gst" class="block text-sm font-medium text-gray-700">GST (%)</label>
+                                    <label for="gst" class="block text-sm font-semibold text-gray-800">GST (%)</label>
                                     <input type="number" id="gst" name="gst" value="18" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                 </div>
                             </div>
 
                             <div class="bg-gray-50 p-4 rounded-md">
                                 <div class="flex justify-between items-center mb-2">
-                                    <span class="text-sm font-medium text-gray-700">Subtotal:</span>
-                                    <span id="subtotal" class="text-sm font-medium text-gray-900">₹0</span>
+                                    <span class="text-sm font-semibold text-gray-800">Subtotal:</span>
+                                    <span id="subtotal" class="text-sm font-semibold text-gray-900">₹0</span>
                                 </div>
                                 <div class="flex justify-between items-center mb-2">
-                                    <span class="text-sm font-medium text-gray-700">Discount:</span>
-                                    <span id="discountAmount" class="text-sm font-medium text-red-600">-₹0</span>
+                                    <span class="text-sm font-semibold text-gray-800">Discount:</span>
+                                    <span id="discountAmount" class="text-sm font-semibold text-red-700">-₹0</span>
                                 </div>
                                 <div class="flex justify-between items-center mb-2">
-                                    <span class="text-sm font-medium text-gray-700">GST:</span>
-                                    <span id="gstAmount" class="text-sm font-medium text-gray-900">+₹0</span>
+                                    <span class="text-sm font-semibold text-gray-800">GST:</span>
+                                    <span id="gstAmount" class="text-sm font-semibold text-gray-900">+₹0</span>
                                 </div>
                                 <div class="border-t border-gray-200 pt-2">
                                     <div class="flex justify-between items-center">
@@ -586,7 +692,23 @@
         document.addEventListener('DOMContentLoaded', function() {
             setupEventListeners();
             updateQuotationCalculator();
+            updateTime();
+            setInterval(updateTime, 1000);
         });
+
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour12: true, 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            const timeElement = document.getElementById('currentTime');
+            if (timeElement) {
+                timeElement.textContent = timeString;
+            }
+        }
 
         // Event Listeners
         function setupEventListeners() {
@@ -666,12 +788,13 @@
             
             // Update active nav item
             document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('text-gray-900', 'bg-gray-100');
-                item.classList.add('text-gray-600', 'hover:text-gray-900', 'hover:bg-gray-50');
+                item.classList.remove('text-black', 'bg-gradient-to-r', 'from-yellow-400', 'to-yellow-600', 'shadow-lg');
+                item.classList.add('text-yellow-300', 'hover:text-yellow-100', 'hover:bg-yellow-500/20');
             });
             
-            e.target.closest('.nav-item').classList.remove('text-gray-600', 'hover:text-gray-900', 'hover:bg-gray-50');
-            e.target.closest('.nav-item').classList.add('text-gray-900', 'bg-gray-100');
+            const activeItem = e.target.closest('.nav-item');
+            activeItem.classList.remove('text-yellow-300', 'hover:text-yellow-100', 'hover:bg-yellow-500/20');
+            activeItem.classList.add('text-black', 'bg-gradient-to-r', 'from-yellow-400', 'to-yellow-600', 'shadow-lg');
             
             showSection(section);
         }
@@ -985,9 +1108,23 @@
             
             const quotationContent = `
                 <div class="border border-gray-200 rounded-lg p-6">
-                    <div class="text-center mb-6">
-                        <h2 class="text-2xl font-bold text-gray-900">QUOTATION</h2>
-                        <p class="text-gray-600">Team Sales Manager</p>
+                    <div class="text-center mb-8 pb-6 border-b border-gray-200">
+                        <div class="flex items-center justify-center mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center mr-3">
+                                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                            <div class="text-left">
+                                <h2 class="text-3xl font-bold text-gray-900">TechyNexus</h2>
+                                <p class="text-sm text-gray-600">Professional Web Solutions</p>
+                            </div>
+                        </div>
+                        <div class="text-sm text-gray-600 space-y-1">
+                            <p>📧 contact@techynexus.com | 📞 +91 98765 43210</p>
+                            <p>🌐 www.techynexus.com | 📍 Tech Hub, Innovation City</p>
+                        </div>
+                        <h3 class="text-xl font-bold text-indigo-600 mt-4">PROJECT QUOTATION</h3>
                     </div>
                     
                     <div class="mb-6">
@@ -1195,5 +1332,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9909a9f0f7898fcd',t:'MTc2MDgwNzU4MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9909c70a721c7a19',t:'MTc2MDgwODc3NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

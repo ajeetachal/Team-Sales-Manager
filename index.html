@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Sales Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        .sidebar-transition {
+            transition: transform 0.3s ease-in-out;
+        }
+        @media (max-width: 768px) {
+            .sidebar-hidden {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-full">
+    <!-- Login Screen -->
+    <div id="loginScreen" class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <div>
+                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Team Sales Manager</h2>
+                <p class="mt-2 text-center text-sm text-gray-600">Sign in to your account</p>
+            </div>
+            <form id="loginForm" class="mt-8 space-y-6">
+                <div class="rounded-md shadow-sm -space-y-px">
+                    <div>
+                        <label for="username" class="sr-only">Username</label>
+                        <input id="username" name="username" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Username">
+                    </div>
+                    <div>
+                        <label for="password" class="sr-only">Password</label>
+                        <input id="password" name="password" type="password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password">
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Sign in
+                    </button>
+                </div>
+            </form>
+            <div class="mt-4 p-4 bg-blue-50 rounded-md">
+                <h3 class="text-sm font-medium text-blue-800 mb-2">Demo Credentials:</h3>
+                <div class="text-xs text-blue-700 space-y-1">
+                    <div><strong>Sales:</strong> pranav / sales123</div>
+                    <div><strong>Management:</strong> ashar / mgmt123</div>
+                    <div><strong>Developer:</strong> ajeet / dev123</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="mainApp" class="hidden min-h-full">
+        <!-- Sidebar -->
+        <div id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg sidebar-transition">
+            <div class="flex items-center justify-between h-16 px-6 border-b border-gray-200">
+                <h1 class="text-xl font-bold text-gray-900">TSM</h1>
+                <button id="closeSidebar" class="md:hidden p-2 rounded-md text-gray-400 hover:text-gray-500">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <nav class="mt-6">
+                <div class="px-3 space-y-1">
+                    <button class="nav-item w-full text-left px-3 py-2 rounded-md text-sm font-medium text-gray-900 bg-gray-100" data-section="dashboard">
+                        <svg class="inline w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                        </svg>
+                        Dashboard
+                    </button>
+                    <button class="nav-item w-full text-left px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50" data-section="team">
+                        <svg class="inline w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                        Team
+                    </button>
+                    <button class="nav-item w-full text-left px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50" data-section="projects">
+                        <svg class="inline w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                        Projects
+                    </button>
+                    <button class="nav-item w-full text-left px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50" data-section="quotation">
+                        <svg class="inline w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                        Quotation
+                    </button>
+                    <button class="nav-item w-full text-left px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50" data-section="analytics">
+                        <svg class="inline w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                        Analytics
+                    </button>
+                </div>
+            </nav>
+            <div class="absolute bottom-0 w-full p-4 border-t border-gray-200">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center">
+                            <span id="userInitial" class="text-white text-sm font-medium">P</span>
+                        </div>
+                    </div>
+                    <div class="ml-3">
+                        <p id="userName" class="text-sm font-medium text-gray-700">Pranav</p>
+                        <p id="userRole" class="text-xs text-gray-500">Sales Executive</p>
+                    </div>
+                </div>
+                <button id="logoutBtn" class="mt-3 w-full text-left text-sm text-red-600 hover:text-red-800">Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="md:pl-64">
+            <!-- Top Bar -->
+            <div class="bg-white shadow-sm border-b border-gray-200">
+                <div class="px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between h-16">
+                        <div class="flex items-center">
+                            <button id="openSidebar" class="md:hidden p-2 rounded-md text-gray-400 hover:text-gray-500">
+                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                </svg>
+                            </button>
+                            <h1 id="pageTitle" class="ml-4 text-2xl font-semibold text-gray-900">Dashboard</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <main class="p-4 sm:p-6 lg:p-8">
+                <!-- Dashboard Section -->
+                <div id="dashboardSection" class="section">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-white overflow-hidden shadow rounded-lg">
+                            <div class="p-5">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"></path>
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="ml-5 w-0 flex-1">
+                                        <dl>
+                                            <dt class="text-sm font-medium text-gray-500 truncate">Total Earnings</dt>
+                                            <dd id="totalEarnings" class="text-lg font-medium text-gray-900">₹0</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white overflow-hidden shadow rounded-lg">
+                            <div class="p-5">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="ml-5 w-0 flex-1">
+                                        <dl>
+                                            <dt class="text-sm font-medium text-gray-500 truncate">Projects Involved</dt>
+                                            <dd id="projectsInvolved" class="text-lg font-medium text-gray-900">0</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white overflow-hidden shadow rounded-lg">
+                            <div class="p-5">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-8 h-8 bg-yellow-500 rounded-md flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="ml-5 w-0 flex-1">
+                                        <dl>
+                                            <dt class="text-sm font-medium text-gray-500 truncate">Active Projects</dt>
+                                            <dd id="activeProjects" class="text-lg font-medium text-gray-900">0</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white overflow-hidden shadow rounded-lg">
+                            <div class="p-5">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-8 h-8 bg-purple-500 rounded-md flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="ml-5 w-0 flex-1">
+                                        <dl>
+                                            <dt class="text-sm font-medium text-gray-500 truncate">Team Rank</dt>
+                                            <dd id="teamRank" class="text-lg font-medium text-gray-900">#1</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white shadow rounded-lg p-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Recent Activity</h3>
+                        <div id="recentActivity" class="space-y-3">
+                            <div class="flex items-center text-sm text-gray-600">
+                                <div class="w-2 h-2 bg-green-400 rounded-full mr-3"></div>
+                                Welcome to Team Sales Manager! Start by exploring the features.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Section -->
+                <div id="teamSection" class="section hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-white overflow-hidden shadow rounded-lg">
+                            <div class="px-4 py-5 sm:p-6">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center">
+                                            <span class="text-white text-lg font-medium">P</span>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="text-lg font-medium text-gray-900">Pranav</h3>
+                                        <p class="text-sm text-gray-500">Sales Executive</p>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <div class="text-sm text-gray-600">
+                                        <div class="flex justify-between">
+                                            <span>Total Earnings:</span>
+                                            <span class="font-medium" id="pranavEarnings">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between mt-1">
+                                            <span>Projects:</span>
+                                            <span class="font-medium" id="pranavProjects">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white overflow-hidden shadow rounded-lg">
+                            <div class="px-4 py-5 sm:p-6">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                                            <span class="text-white text-lg font-medium">A</span>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="text-lg font-medium text-gray-900">Ashar Yunus</h3>
+                                        <p class="text-sm text-gray-500">Management Team</p>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <div class="text-sm text-gray-600">
+                                        <div class="flex justify-between">
+                                            <span>Company Fund:</span>
+                                            <span class="font-medium" id="asharEarnings">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between mt-1">
+                                            <span>Projects Managed:</span>
+                                            <span class="font-medium" id="asharProjects">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white overflow-hidden shadow rounded-lg">
+                            <div class="px-4 py-5 sm:p-6">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
+                                            <span class="text-white text-lg font-medium">A</span>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="text-lg font-medium text-gray-900">Ajeet Achal</h3>
+                                        <p class="text-sm text-gray-500">Developer</p>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <div class="text-sm text-gray-600">
+                                        <div class="flex justify-between">
+                                            <span>Total Earnings:</span>
+                                            <span class="font-medium" id="ajeetEarnings">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between mt-1">
+                                            <span>Projects:</span>
+                                            <span class="font-medium" id="ajeetProjects">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects Section -->
+                <div id="projectsSection" class="section hidden">
+                    <div class="mb-6">
+                        <button id="addProjectBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+                            Add New Project
+                        </button>
+                    </div>
+                    <div id="projectsList" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Projects will be dynamically added here -->
+                    </div>
+                </div>
+
+                <!-- Quotation Section -->
+                <div id="quotationSection" class="section hidden">
+                    <div class="bg-white shadow rounded-lg p-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-6">Price Quotation Generator</h3>
+                        <form id="quotationForm" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="clientName" class="block text-sm font-medium text-gray-700">Client Name</label>
+                                    <input type="text" id="clientName" name="clientName" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                                </div>
+                                <div>
+                                    <label for="projectCategory" class="block text-sm font-medium text-gray-700">Project Category</label>
+                                    <select id="projectCategory" name="projectCategory" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                                        <option value="">Select Category</option>
+                                        <option value="informative">Informative Website</option>
+                                        <option value="ecommerce">E-commerce Website</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="projectType" class="block text-sm font-medium text-gray-700">Project Type</label>
+                                    <select id="projectType" name="projectType" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                                        <option value="">Select Type</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="basePrice" class="block text-sm font-medium text-gray-700">Base Price (₹)</label>
+                                    <input type="number" id="basePrice" name="basePrice" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" readonly>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-md font-medium text-gray-900 mb-3">Add-ons</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" id="domainAddon" name="addons" value="1000" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                        <span class="ml-2 text-sm text-gray-700">Domain (₹1,000)</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" id="hostingAddon" name="addons" value="3000" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                        <span class="ml-2 text-sm text-gray-700">Hosting (₹3,000)</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" id="maintenanceAddon" name="addons" value="5000" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                        <span class="ml-2 text-sm text-gray-700">Maintenance Plan (₹5,000/year)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="discount" class="block text-sm font-medium text-gray-700">Discount (%)</label>
+                                    <input type="number" id="discount" name="discount" min="0" max="100" value="0" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                </div>
+                                <div>
+                                    <label for="gst" class="block text-sm font-medium text-gray-700">GST (%)</label>
+                                    <input type="number" id="gst" name="gst" value="18" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 p-4 rounded-md">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm font-medium text-gray-700">Subtotal:</span>
+                                    <span id="subtotal" class="text-sm font-medium text-gray-900">₹0</span>
+                                </div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm font-medium text-gray-700">Discount:</span>
+                                    <span id="discountAmount" class="text-sm font-medium text-red-600">-₹0</span>
+                                </div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm font-medium text-gray-700">GST:</span>
+                                    <span id="gstAmount" class="text-sm font-medium text-gray-900">+₹0</span>
+                                </div>
+                                <div class="border-t border-gray-200 pt-2">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-lg font-bold text-gray-900">Total:</span>
+                                        <span id="totalAmount" class="text-lg font-bold text-indigo-600">₹0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex space-x-4">
+                                <button type="button" id="generateQuotationBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-md text-sm font-medium">
+                                    Generate Quotation
+                                </button>
+                                <button type="button" id="saveQuotationBtn" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-md text-sm font-medium">
+                                    Save Quotation
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="quotationResult" class="hidden mt-6 bg-white shadow rounded-lg p-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Generated Quotation</h3>
+                        <div id="quotationContent"></div>
+                    </div>
+                </div>
+
+                <!-- Analytics Section -->
+                <div id="analyticsSection" class="section hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-white shadow rounded-lg p-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Monthly Revenue</h3>
+                            <canvas id="revenueChart" width="400" height="200"></canvas>
+                        </div>
+                        <div class="bg-white shadow rounded-lg p-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Team Performance</h3>
+                            <canvas id="performanceChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow rounded-lg p-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Project Status Overview</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-green-600" id="completedProjects">0</div>
+                                <div class="text-sm text-gray-500">Completed</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-yellow-600" id="pendingProjects">0</div>
+                                <div class="text-sm text-gray-500">In Progress</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-blue-600" id="totalProjectsAnalytics">0</div>
+                                <div class="text-sm text-gray-500">Total Projects</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add Project Modal -->
+    <div id="addProjectModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">Add New Project</h3>
+                <form id="addProjectForm" class="space-y-4">
+                    <div>
+                        <label for="projectName" class="block text-sm font-medium text-gray-700">Project Name</label>
+                        <input type="text" id="projectName" name="projectName" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                    </div>
+                    <div>
+                        <label for="projectClient" class="block text-sm font-medium text-gray-700">Client Name</label>
+                        <input type="text" id="projectClient" name="projectClient" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                    </div>
+                    <div>
+                        <label for="projectValue" class="block text-sm font-medium text-gray-700">Project Value (₹)</label>
+                        <input type="number" id="projectValue" name="projectValue" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                    </div>
+                    <div>
+                        <label for="clientFinder" class="block text-sm font-medium text-gray-700">Client Found By</label>
+                        <select id="clientFinder" name="clientFinder" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                            <option value="">Select Member</option>
+                            <option value="pranav">Pranav</option>
+                            <option value="ashar">Ashar Yunus</option>
+                            <option value="ajeet">Ajeet Achal</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="dealCloser" class="block text-sm font-medium text-gray-700">Deal Closed By</label>
+                        <select id="dealCloser" name="dealCloser" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value="">Select Member</option>
+                            <option value="pranav">Pranav</option>
+                            <option value="ashar">Ashar Yunus</option>
+                            <option value="ajeet">Ajeet Achal</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="developer" class="block text-sm font-medium text-gray-700">Developer</label>
+                        <select id="developer" name="developer" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value="">Select Member</option>
+                            <option value="pranav">Pranav</option>
+                            <option value="ashar">Ashar Yunus</option>
+                            <option value="ajeet">Ajeet Achal</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="projectStatus" class="block text-sm font-medium text-gray-700">Status</label>
+                        <select id="projectStatus" name="projectStatus" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="flex justify-end space-x-3 pt-4">
+                        <button type="button" id="cancelProjectBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-md text-sm font-medium">
+                            Cancel
+                        </button>
+                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+                            Add Project
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Application State
+        let currentUser = null;
+        let projects = JSON.parse(localStorage.getItem('projects')) || [];
+        let quotations = JSON.parse(localStorage.getItem('quotations')) || [];
+
+        // User credentials and data
+        const users = {
+            'pranav': { 
+                password: 'sales123', 
+                name: 'Pranav', 
+                role: 'Sales Executive',
+                permissions: ['quotation', 'projects']
+            },
+            'ashar': { 
+                password: 'mgmt123', 
+                name: 'Ashar Yunus', 
+                role: 'Management Team',
+                permissions: ['analytics', 'team', 'projects', 'quotation']
+            },
+            'ajeet': { 
+                password: 'dev123', 
+                name: 'Ajeet Achal', 
+                role: 'Developer',
+                permissions: ['projects']
+            }
+        };
+
+        // Pricing structure
+        const pricing = {
+            informative: {
+                wordpress: { min: 15000, max: 20000 },
+                shopify: { min: 20000, max: 30000 },
+                custom: { min: 85000, max: 85000 }
+            },
+            ecommerce: {
+                wordpress: { min: 35000, max: 40000 },
+                shopify: { min: 60000, max: 80000 },
+                custom: { min: 100500, max: 100500 }
+            }
+        };
+
+        // DOM Elements
+        const loginScreen = document.getElementById('loginScreen');
+        const mainApp = document.getElementById('mainApp');
+        const loginForm = document.getElementById('loginForm');
+        const sidebar = document.getElementById('sidebar');
+        const openSidebar = document.getElementById('openSidebar');
+        const closeSidebar = document.getElementById('closeSidebar');
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            updateQuotationCalculator();
+        });
+
+        // Event Listeners
+        function setupEventListeners() {
+            // Login
+            loginForm.addEventListener('submit', handleLogin);
+            
+            // Navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', handleNavigation);
+            });
+            
+            // Sidebar toggle
+            openSidebar.addEventListener('click', () => {
+                sidebar.classList.remove('sidebar-hidden');
+            });
+            
+            closeSidebar.addEventListener('click', () => {
+                sidebar.classList.add('sidebar-hidden');
+            });
+            
+            // Logout
+            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+            
+            // Project management
+            document.getElementById('addProjectBtn').addEventListener('click', showAddProjectModal);
+            document.getElementById('cancelProjectBtn').addEventListener('click', hideAddProjectModal);
+            document.getElementById('addProjectForm').addEventListener('submit', handleAddProject);
+            
+            // Quotation
+            document.getElementById('projectCategory').addEventListener('change', updateProjectTypes);
+            document.getElementById('projectType').addEventListener('change', updateBasePrice);
+            document.getElementById('quotationForm').addEventListener('input', updateQuotationCalculator);
+            document.getElementById('generateQuotationBtn').addEventListener('click', generateQuotation);
+            document.getElementById('saveQuotationBtn').addEventListener('click', saveQuotation);
+        }
+
+        // Authentication
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (users[username] && users[username].password === password) {
+                currentUser = { username, ...users[username] };
+                showMainApp();
+            } else {
+                showNotification('Invalid credentials', 'error');
+            }
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            loginScreen.classList.remove('hidden');
+            mainApp.classList.add('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        function showMainApp() {
+            loginScreen.classList.add('hidden');
+            mainApp.classList.remove('hidden');
+            
+            // Update user info
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('userRole').textContent = currentUser.role;
+            document.getElementById('userInitial').textContent = currentUser.name.charAt(0);
+            
+            // Show dashboard by default
+            showSection('dashboard');
+            updateDashboard();
+            updateTeamStats();
+        }
+
+        // Navigation
+        function handleNavigation(e) {
+            const section = e.target.closest('.nav-item').dataset.section;
+            
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('text-gray-900', 'bg-gray-100');
+                item.classList.add('text-gray-600', 'hover:text-gray-900', 'hover:bg-gray-50');
+            });
+            
+            e.target.closest('.nav-item').classList.remove('text-gray-600', 'hover:text-gray-900', 'hover:bg-gray-50');
+            e.target.closest('.nav-item').classList.add('text-gray-900', 'bg-gray-100');
+            
+            showSection(section);
+        }
+
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName + 'Section').classList.remove('hidden');
+            
+            // Update page title
+            const titles = {
+                dashboard: 'Dashboard',
+                team: 'Team Management',
+                projects: 'Projects',
+                quotation: 'Price Quotation',
+                analytics: 'Analytics'
+            };
+            
+            document.getElementById('pageTitle').textContent = titles[sectionName];
+            
+            // Load section-specific data
+            if (sectionName === 'analytics') {
+                loadAnalytics();
+            } else if (sectionName === 'projects') {
+                loadProjects();
+            }
+        }
+
+        // Dashboard
+        function updateDashboard() {
+            const userEarnings = calculateUserEarnings(currentUser.username);
+            const userProjects = getUserProjects(currentUser.username);
+            
+            document.getElementById('totalEarnings').textContent = `₹${userEarnings.toLocaleString()}`;
+            document.getElementById('projectsInvolved').textContent = userProjects.length;
+            document.getElementById('activeProjects').textContent = userProjects.filter(p => p.status !== 'completed').length;
+            
+            // Update recent activity
+            updateRecentActivity();
+        }
+
+        function updateRecentActivity() {
+            const activityContainer = document.getElementById('recentActivity');
+            const recentProjects = projects.slice(-3).reverse();
+            
+            if (recentProjects.length === 0) {
+                activityContainer.innerHTML = `
+                    <div class="flex items-center text-sm text-gray-600">
+                        <div class="w-2 h-2 bg-green-400 rounded-full mr-3"></div>
+                        Welcome to Team Sales Manager! Start by exploring the features.
+                    </div>
+                `;
+                return;
+            }
+            
+            activityContainer.innerHTML = recentProjects.map(project => `
+                <div class="flex items-center text-sm text-gray-600">
+                    <div class="w-2 h-2 bg-blue-400 rounded-full mr-3"></div>
+                    Project "${project.name}" - ₹${project.value.toLocaleString()} (${project.status})
+                </div>
+            `).join('');
+        }
+
+        // Team Management
+        function updateTeamStats() {
+            const pranavEarnings = calculateUserEarnings('pranav');
+            const asharEarnings = calculateUserEarnings('ashar');
+            const ajeetEarnings = calculateUserEarnings('ajeet');
+            
+            document.getElementById('pranavEarnings').textContent = `₹${pranavEarnings.toLocaleString()}`;
+            document.getElementById('asharEarnings').textContent = `₹${asharEarnings.toLocaleString()}`;
+            document.getElementById('ajeetEarnings').textContent = `₹${ajeetEarnings.toLocaleString()}`;
+            
+            document.getElementById('pranavProjects').textContent = getUserProjects('pranav').length;
+            document.getElementById('asharProjects').textContent = projects.length;
+            document.getElementById('ajeetProjects').textContent = getUserProjects('ajeet').length;
+        }
+
+        function calculateUserEarnings(username) {
+            let earnings = 0;
+            
+            projects.forEach(project => {
+                const value = project.value;
+                
+                // Client finder gets 10%
+                if (project.clientFinder === username) {
+                    earnings += value * 0.1;
+                }
+                
+                // Deal closer gets 20%
+                if (project.dealCloser === username) {
+                    earnings += value * 0.2;
+                }
+                
+                // Developer gets 40%
+                if (project.developer === username) {
+                    earnings += value * 0.4;
+                }
+                
+                // Management gets remaining 30%
+                if (username === 'ashar') {
+                    earnings += value * 0.3;
+                }
+            });
+            
+            return earnings;
+        }
+
+        function getUserProjects(username) {
+            return projects.filter(project => 
+                project.clientFinder === username || 
+                project.dealCloser === username || 
+                project.developer === username
+            );
+        }
+
+        // Project Management
+        function showAddProjectModal() {
+            document.getElementById('addProjectModal').classList.remove('hidden');
+        }
+
+        function hideAddProjectModal() {
+            document.getElementById('addProjectModal').classList.add('hidden');
+            document.getElementById('addProjectForm').reset();
+        }
+
+        function handleAddProject(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const project = {
+                id: Date.now(),
+                name: formData.get('projectName'),
+                client: formData.get('projectClient'),
+                value: parseInt(formData.get('projectValue')),
+                clientFinder: formData.get('clientFinder'),
+                dealCloser: formData.get('dealCloser'),
+                developer: formData.get('developer'),
+                status: formData.get('projectStatus'),
+                createdAt: new Date().toISOString()
+            };
+            
+            projects.push(project);
+            localStorage.setItem('projects', JSON.stringify(projects));
+            
+            hideAddProjectModal();
+            loadProjects();
+            updateDashboard();
+            updateTeamStats();
+            
+            showNotification('Project added successfully!', 'success');
+        }
+
+        function loadProjects() {
+            const projectsList = document.getElementById('projectsList');
+            
+            if (projects.length === 0) {
+                projectsList.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                        <h3 class="mt-2 text-sm font-medium text-gray-900">No projects</h3>
+                        <p class="mt-1 text-sm text-gray-500">Get started by creating a new project.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            projectsList.innerHTML = projects.map(project => {
+                const commissions = calculateProjectCommissions(project);
+                const statusColors = {
+                    'pending': 'bg-yellow-100 text-yellow-800',
+                    'in-progress': 'bg-blue-100 text-blue-800',
+                    'completed': 'bg-green-100 text-green-800'
+                };
+                
+                return `
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-medium text-gray-900">${project.name}</h3>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColors[project.status]}">
+                                    ${project.status.replace('-', ' ')}
+                                </span>
+                            </div>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div><strong>Client:</strong> ${project.client}</div>
+                                <div><strong>Value:</strong> ₹${project.value.toLocaleString()}</div>
+                                <div><strong>Client Found By:</strong> ${getUserName(project.clientFinder)}</div>
+                                ${project.dealCloser ? `<div><strong>Deal Closed By:</strong> ${getUserName(project.dealCloser)}</div>` : ''}
+                                ${project.developer ? `<div><strong>Developer:</strong> ${getUserName(project.developer)}</div>` : ''}
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-gray-200">
+                                <h4 class="text-sm font-medium text-gray-900 mb-2">Commission Breakdown</h4>
+                                <div class="space-y-1 text-xs text-gray-600">
+                                    ${commissions.finder ? `<div>Client Finder: ₹${commissions.finder.toLocaleString()}</div>` : ''}
+                                    ${commissions.closer ? `<div>Deal Closer: ₹${commissions.closer.toLocaleString()}</div>` : ''}
+                                    ${commissions.developer ? `<div>Developer: ₹${commissions.developer.toLocaleString()}</div>` : ''}
+                                    <div>Company Fund: ₹${commissions.company.toLocaleString()}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function calculateProjectCommissions(project) {
+            const value = project.value;
+            return {
+                finder: project.clientFinder ? value * 0.1 : 0,
+                closer: project.dealCloser ? value * 0.2 : 0,
+                developer: project.developer ? value * 0.4 : 0,
+                company: value * 0.3
+            };
+        }
+
+        function getUserName(username) {
+            return users[username] ? users[username].name : username;
+        }
+
+        // Quotation System
+        function updateProjectTypes() {
+            const category = document.getElementById('projectCategory').value;
+            const typeSelect = document.getElementById('projectType');
+            
+            typeSelect.innerHTML = '<option value="">Select Type</option>';
+            
+            if (category) {
+                typeSelect.innerHTML += `
+                    <option value="wordpress">WordPress</option>
+                    <option value="shopify">Shopify</option>
+                    <option value="custom">Custom (Laravel/React)</option>
+                `;
+            }
+            
+            updateBasePrice();
+        }
+
+        function updateBasePrice() {
+            const category = document.getElementById('projectCategory').value;
+            const type = document.getElementById('projectType').value;
+            const basePriceInput = document.getElementById('basePrice');
+            
+            if (category && type && pricing[category] && pricing[category][type]) {
+                const priceRange = pricing[category][type];
+                basePriceInput.value = priceRange.min;
+            } else {
+                basePriceInput.value = '';
+            }
+            
+            updateQuotationCalculator();
+        }
+
+        function updateQuotationCalculator() {
+            const basePrice = parseFloat(document.getElementById('basePrice').value) || 0;
+            const discount = parseFloat(document.getElementById('discount').value) || 0;
+            const gstRate = parseFloat(document.getElementById('gst').value) || 18;
+            
+            // Calculate add-ons
+            let addonsTotal = 0;
+            document.querySelectorAll('input[name="addons"]:checked').forEach(addon => {
+                addonsTotal += parseFloat(addon.value);
+            });
+            
+            // Calculate totals
+            const subtotal = basePrice + addonsTotal;
+            const discountAmount = subtotal * (discount / 100);
+            const afterDiscount = subtotal - discountAmount;
+            const gstAmount = afterDiscount * (gstRate / 100);
+            const total = afterDiscount + gstAmount;
+            
+            // Update display
+            document.getElementById('subtotal').textContent = `₹${subtotal.toLocaleString()}`;
+            document.getElementById('discountAmount').textContent = `-₹${discountAmount.toLocaleString()}`;
+            document.getElementById('gstAmount').textContent = `+₹${gstAmount.toLocaleString()}`;
+            document.getElementById('totalAmount').textContent = `₹${total.toLocaleString()}`;
+        }
+
+        function generateQuotation() {
+            const clientName = document.getElementById('clientName').value;
+            const category = document.getElementById('projectCategory').value;
+            const type = document.getElementById('projectType').value;
+            
+            if (!clientName || !category || !type) {
+                showNotification('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            const basePrice = parseFloat(document.getElementById('basePrice').value);
+            const discount = parseFloat(document.getElementById('discount').value) || 0;
+            const gstRate = parseFloat(document.getElementById('gst').value) || 18;
+            
+            let addonsTotal = 0;
+            const selectedAddons = [];
+            document.querySelectorAll('input[name="addons"]:checked').forEach(addon => {
+                addonsTotal += parseFloat(addon.value);
+                selectedAddons.push(addon.parentElement.textContent.trim());
+            });
+            
+            const subtotal = basePrice + addonsTotal;
+            const discountAmount = subtotal * (discount / 100);
+            const afterDiscount = subtotal - discountAmount;
+            const gstAmount = afterDiscount * (gstRate / 100);
+            const total = afterDiscount + gstAmount;
+            
+            const quotationContent = `
+                <div class="border border-gray-200 rounded-lg p-6">
+                    <div class="text-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900">QUOTATION</h2>
+                        <p class="text-gray-600">Team Sales Manager</p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Client Details</h3>
+                        <p><strong>Name:</strong> ${clientName}</p>
+                        <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Project Details</h3>
+                        <p><strong>Category:</strong> ${category.charAt(0).toUpperCase() + category.slice(1)} Website</p>
+                        <p><strong>Type:</strong> ${type.charAt(0).toUpperCase() + type.slice(1)}</p>
+                        <p><strong>Base Price:</strong> ₹${basePrice.toLocaleString()}</p>
+                    </div>
+                    
+                    ${selectedAddons.length > 0 ? `
+                        <div class="mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Add-ons</h3>
+                            ${selectedAddons.map(addon => `<p>• ${addon}</p>`).join('')}
+                        </div>
+                    ` : ''}
+                    
+                    <div class="border-t border-gray-200 pt-4">
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span>Subtotal:</span>
+                                <span>₹${subtotal.toLocaleString()}</span>
+                            </div>
+                            ${discount > 0 ? `
+                                <div class="flex justify-between text-red-600">
+                                    <span>Discount (${discount}%):</span>
+                                    <span>-₹${discountAmount.toLocaleString()}</span>
+                                </div>
+                            ` : ''}
+                            <div class="flex justify-between">
+                                <span>GST (${gstRate}%):</span>
+                                <span>₹${gstAmount.toLocaleString()}</span>
+                            </div>
+                            <div class="flex justify-between text-lg font-bold border-t border-gray-200 pt-2">
+                                <span>Total Amount:</span>
+                                <span>₹${total.toLocaleString()}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 text-sm text-gray-600">
+                        <p><strong>Terms & Conditions:</strong></p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>50% advance payment required to start the project</li>
+                            <li>Remaining 50% upon project completion</li>
+                            <li>Project timeline: 2-4 weeks depending on complexity</li>
+                            <li>Free support for 30 days after delivery</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('quotationContent').innerHTML = quotationContent;
+            document.getElementById('quotationResult').classList.remove('hidden');
+        }
+
+        function saveQuotation() {
+            const clientName = document.getElementById('clientName').value;
+            
+            if (!clientName) {
+                showNotification('Please enter client name', 'error');
+                return;
+            }
+            
+            const quotation = {
+                id: Date.now(),
+                clientName,
+                category: document.getElementById('projectCategory').value,
+                type: document.getElementById('projectType').value,
+                basePrice: parseFloat(document.getElementById('basePrice').value),
+                discount: parseFloat(document.getElementById('discount').value) || 0,
+                gst: parseFloat(document.getElementById('gst').value) || 18,
+                total: parseFloat(document.getElementById('totalAmount').textContent.replace('₹', '').replace(/,/g, '')),
+                createdAt: new Date().toISOString(),
+                createdBy: currentUser.username
+            };
+            
+            quotations.push(quotation);
+            localStorage.setItem('quotations', JSON.stringify(quotations));
+            
+            showNotification('Quotation saved successfully!', 'success');
+        }
+
+        // Analytics
+        function loadAnalytics() {
+            updateAnalyticsStats();
+            createRevenueChart();
+            createPerformanceChart();
+        }
+
+        function updateAnalyticsStats() {
+            const completed = projects.filter(p => p.status === 'completed').length;
+            const pending = projects.filter(p => p.status !== 'completed').length;
+            
+            document.getElementById('completedProjects').textContent = completed;
+            document.getElementById('pendingProjects').textContent = pending;
+            document.getElementById('totalProjectsAnalytics').textContent = projects.length;
+        }
+
+        function createRevenueChart() {
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            
+            // Generate sample monthly data
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+            const revenue = projects.reduce((acc, project, index) => {
+                const monthIndex = index % 6;
+                acc[monthIndex] += project.value;
+                return acc;
+            }, new Array(6).fill(0));
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: 'Revenue (₹)',
+                        data: revenue,
+                        borderColor: 'rgb(79, 70, 229)',
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '₹' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createPerformanceChart() {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            
+            const teamData = [
+                { name: 'Pranav', earnings: calculateUserEarnings('pranav') },
+                { name: 'Ashar', earnings: calculateUserEarnings('ashar') },
+                { name: 'Ajeet', earnings: calculateUserEarnings('ajeet') }
+            ];
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: teamData.map(member => member.name),
+                    datasets: [{
+                        label: 'Earnings (₹)',
+                        data: teamData.map(member => member.earnings),
+                        backgroundColor: [
+                            'rgba(79, 70, 229, 0.8)',
+                            'rgba(34, 197, 94, 0.8)',
+                            'rgba(168, 85, 247, 0.8)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '₹' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Utility Functions
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-md shadow-lg ${
+                type === 'success' ? 'bg-green-500 text-white' : 
+                type === 'error' ? 'bg-red-500 text-white' : 
+                'bg-blue-500 text-white'
+            }`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('addProjectModal');
+            if (e.target === modal) {
+                hideAddProjectModal();
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9909a9f0f7898fcd',t:'MTc2MDgwNzU4MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
